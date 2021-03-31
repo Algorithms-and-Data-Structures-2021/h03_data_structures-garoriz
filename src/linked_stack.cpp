@@ -15,10 +15,14 @@ namespace itis {
             throw std::logic_error("cannot pop out from empty stack");
         }
 
-        SinglyNode *node = top_;
-        delete top_;
-        top_ = node->next;
-        delete node;
+        if (size_ == 1) {
+            delete top_;
+            top_ = nullptr;
+        } else {
+            SinglyNode *node = top_->next;
+            delete top_;
+            top_ = node;
+        }
         size_--;
     }
 

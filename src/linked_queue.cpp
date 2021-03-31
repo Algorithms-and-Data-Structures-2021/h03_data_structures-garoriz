@@ -6,7 +6,7 @@ namespace itis {
 
     void LinkedQueue::Enqueue(Element e) {
         auto *node = new SinglyNode(e, nullptr);
-        if (size_ == 0) {
+        if (front_ == nullptr) {
             front_ = node;
             back_ = node;
         } else {
@@ -25,7 +25,7 @@ namespace itis {
             front_ = nullptr;
             back_ = nullptr;
         } else {
-            SinglyNode *node = front_->next;
+            auto *node = front_->next;
             delete front_;
             front_ = node;
         }
@@ -33,12 +33,13 @@ namespace itis {
     }
 
     void LinkedQueue::Clear() {
-        for (int i = 0; i < size_; ++i) {
-            SinglyNode *node = front_;
-            delete front_;
-            front_ = node->next;
-            delete node;
+        for (SinglyNode *curr_node = front_; curr_node != nullptr;) {
+            auto del_node = curr_node;
+            curr_node = curr_node->next;
+            delete del_node;
         }
+        front_ = nullptr;
+        back_ = nullptr;
         size_ = 0;
     }
 

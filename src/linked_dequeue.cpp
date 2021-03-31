@@ -35,11 +35,10 @@ namespace itis {
             front_ = nullptr;
             back_ = nullptr;
         } else {
-            DoublyNode *delete_node = front_;
+            auto *delete_node = front_->previous;
             delete front_;
-            front_ = delete_node->previous;
-            front_->next = nullptr;
-            delete delete_node;
+            front_ = delete_node;
+            delete_node->next = nullptr;
         }
         size_--;
     }
@@ -53,12 +52,12 @@ namespace itis {
             front_ = nullptr;
             back_ = nullptr;
         } else {
-            DoublyNode *delete_node = back_;
+            auto *delete_node = back_->next;
             delete back_;
-            back_ = delete_node->next;
+            back_ = delete_node;
             back_->previous = nullptr;
-            delete delete_node;
         }
+        size_--;
     }
 
     void LinkedDequeue::Clear() {
